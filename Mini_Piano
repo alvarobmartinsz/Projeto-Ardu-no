@@ -1,0 +1,188 @@
+const int tonePin = 13; // Pino do buzzer
+
+// Pinos do display de 7 segmentos
+const int a = A0;
+const int b = A1;
+const int c = A5;
+const int d = A4;
+const int e = 11;
+const int f = 9;
+const int g = 10;
+const int dp = A3;
+
+// Pinos dos botões que representam as teclas do piano
+const int key1 = 8;
+const int key2 = 7;
+const int key3 = 6;
+const int key4 = 5;
+const int key5 = 4;
+const int key6 = 3;
+const int key7 = 2;
+const int key8 = 1;
+
+void setup() {
+  pinMode(tonePin, OUTPUT);
+
+  // Configura os pinos dos botões como entrada
+  pinMode(key1, INPUT);
+  pinMode(key2, INPUT);
+  pinMode(key3, INPUT);
+  pinMode(key4, INPUT);
+  pinMode(key5, INPUT);
+  pinMode(key6, INPUT);
+  pinMode(key7, INPUT);
+  pinMode(key8, INPUT);
+
+  // Configura os pinos do display de 7 segmentos como saída
+  pinMode(a, OUTPUT);
+  pinMode(b, OUTPUT);
+  pinMode(c, OUTPUT);
+  pinMode(d, OUTPUT);
+  pinMode(e, OUTPUT);
+  pinMode(f, OUTPUT);
+  pinMode(g, OUTPUT);
+  pinMode(dp, OUTPUT);
+
+  // Inicialmente, apaga o display e o ponto decimal
+  clearDisplay();
+}
+
+void loop() {
+  // Checar cada tecla e tocar o tom correspondente, mostrando o número no display
+  if (digitalRead(key1) == HIGH) {
+    tone(tonePin, 262, 100); // C3
+    displayDigit(1); // Exibe C no display
+    delay(50);
+    noTone(tonePin);
+  } else if (digitalRead(key2) == HIGH) {
+    tone(tonePin, 294, 100); // D3
+    displayDigit(2); // Exibe d no display
+    delay(50);
+    noTone(tonePin);
+  } else if (digitalRead(key3) == HIGH) {
+    tone(tonePin, 330, 100); // E3
+    displayDigit(3); // Exibe E no display
+    delay(50);
+    noTone(tonePin);
+  } else if (digitalRead(key4) == HIGH) {
+    tone(tonePin, 349, 100); // F3
+    displayDigit(4); // Exibe F no display
+    delay(50);
+    noTone(tonePin);
+  } else if (digitalRead(key5) == HIGH) {
+    tone(tonePin, 392, 100); // G3
+    displayDigit(5); // Exibe G no display
+    delay(50);
+    noTone(tonePin);
+  } else if (digitalRead(key6) == HIGH) {
+    tone(tonePin, 440, 100); // A3
+    displayDigit(6); // Exibe A no display
+    delay(50);
+    noTone(tonePin);
+  } else if (digitalRead(key7) == HIGH) {
+    tone(tonePin, 494, 100); // B3
+    displayDigit(7); // Exibe b no display
+    delay(50);
+    noTone(tonePin);
+  } else if (digitalRead(key8) == HIGH) {
+    tone(tonePin, 523, 100); // C4
+    displayDigit(8); // Exibe C. no display
+    delay(50);
+    noTone(tonePin);
+  } else {
+    clearDisplay(); // Apaga o display quando nenhuma tecla é pressionada
+  }
+}
+
+// Função para acender os segmentos corretos para cada número
+void displayDigit(int digit) {
+  switch (digit) {
+    case 1: //Notá Dó = C
+      digitalWrite(a, HIGH);
+      digitalWrite(b, LOW);
+      digitalWrite(c, LOW);
+      digitalWrite(d, HIGH);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, HIGH);
+      digitalWrite(g, LOW);
+      break;
+    case 2: //RÉ = d
+      digitalWrite(a, LOW);
+      digitalWrite(b, HIGH);
+      digitalWrite(c, HIGH);
+      digitalWrite(d, HIGH);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, LOW);
+      digitalWrite(g, HIGH);
+      break;
+    case 3: //MI = E
+      digitalWrite(a, HIGH);
+      digitalWrite(b, LOW);
+      digitalWrite(c, LOW);
+      digitalWrite(d, HIGH);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, HIGH);
+      digitalWrite(g, HIGH);
+      break;
+    case 4: //Fá = F
+      digitalWrite(a, HIGH);
+      digitalWrite(b, LOW);
+      digitalWrite(c, LOW);
+      digitalWrite(d, LOW);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, HIGH);
+      digitalWrite(g, HIGH);
+      break;
+    case 5: //SOL = G
+      digitalWrite(a, HIGH);
+      digitalWrite(b, LOW);
+      digitalWrite(c, HIGH);
+      digitalWrite(d, HIGH);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, HIGH);
+      digitalWrite(g, HIGH);
+      break;
+    case 6: //Lá = A
+      digitalWrite(a, HIGH);
+      digitalWrite(b, HIGH);
+      digitalWrite(c, HIGH);
+      digitalWrite(d, LOW);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, HIGH);
+      digitalWrite(g, HIGH);
+      break;
+    case 7: //Si = b
+      digitalWrite(a, LOW);
+      digitalWrite(b, LOW);
+      digitalWrite(c, HIGH);
+      digitalWrite(d, HIGH);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, HIGH);
+      digitalWrite(g, HIGH);
+      break;
+    case 8: //Dó = C.
+      digitalWrite(a, HIGH);
+      digitalWrite(b, LOW);
+      digitalWrite(c, LOW);
+      digitalWrite(d, HIGH);
+      digitalWrite(e, HIGH);
+      digitalWrite(f, HIGH);
+      digitalWrite(g, LOW);
+      digitalWrite(dp, HIGH);
+      break;
+    default:
+      clearDisplay(); // Apaga o display se o dígito for inválido
+  }
+}
+
+// Função para apagar o display
+void clearDisplay() {
+  digitalWrite(a, LOW);
+  digitalWrite(b, LOW);
+  digitalWrite(c, LOW);
+  digitalWrite(d, LOW);
+  digitalWrite(e, LOW);
+  digitalWrite(f, LOW);
+  digitalWrite(g, LOW);
+  digitalWrite(dp, LOW); // Desliga o ponto decimal
+}
